@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results - {{ query }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Industrial Knowledge Mapping</a>
+            <form class="d-flex ms-auto" action="/search" method="GET">
+                <input class="form-control me-2" type="search" name="q" value="{{ query }}" placeholder="Search..." aria-label="Search">
+                <button class="btn btn-outline-light" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+
+    <div class="container-fluid px-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Search Results for <span class="text-primary">"{{ query }}"</span></h2>
+            <a href="/" class="btn btn-outline-secondary">Back to Home</a>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar for cross-plant relationships -->
+            <div class="col-lg-3 mb-4">
+                <div class="card shadow-sm border-0 sticky-top sidebar-card">
+                    <div class="card-header bg-info text-dark fw-bold">
+                        Cross-Plant Relationships
+                    </div>
+                    <div class="card-body bg-white">
+                        {% if relationships %}
+                            <p class="text-muted small mb-3">Similar applications found in:</p>
+                            <ul class="list-group list-group-flush">
+                                {% for plant, workshops in relationships.items() %}
+                                    <li class="list-group-item px-0 border-bottom">
+                                        <div class="fw-bold text-dark">{{ plant }}</div>
+                                        <div class="small mt-1 text-secondary">
+                                            Workshops: {{ workshops | join(', ') }}
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p class="text-muted small">No distinct relationships found.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main results area -->
+            <div class="col-lg-9">
+                {% if results %}
+                    <div class="table-responsive shadow-sm bg-white rounded border results-table-wrapper">
+                        <table class="table table-hover table-bordered mb-0 align-middle">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Plant</th>
+                                    <th>Workshop</th>
+                                    <th>Station No</th>
+                                    <th>Process</th>
+                                    <th>Tool Used</th>
+                                    <th>Skill</th>
+                                    <th>Theory Module</th>
+                                    <th>Safety Concept</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in results %}
+                                <tr>
+                                    <td><span class="badge bg-secondary">{{ item.plant }}</span></td>
+                                    <td class="fw-bold">{{ item.workshop }}</td>
+                                    <td class="text-primary fw-bold">{{ item.station_no }}</td>
+                                    <td>{{ item.process_name }}</td>
+                                    <td><span class="badge bg-light text-dark border">{{ item.tool_used }}</span></td>
+                                    <td><small class="text-muted">{{ item.skill_required }}</small></td>
+                                    <td><small>{{ item.theory_module }}</small></td>
+                                    <td><small class="text-danger fw-bold">{{ item.safety_concept }}</small></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="alert alert-warning text-center p-5 shadow-sm bg-white border">
+                        <h4 class="alert-heading text-warning">No mappings found!</h4>
+                        <p class="mt-3">We couldn't find any workstation mappings matching "<strong>{{ query }}</strong>".</p>
+                        <hr>
+                        <p class="mb-0 text-muted">Try searching for a different term or update the database with a newer Excel file.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

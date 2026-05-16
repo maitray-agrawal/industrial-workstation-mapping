@@ -1,0 +1,44 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f9;
+}
+
+.banner-section {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-top: 4px solid #0d6efd !important;
+}
+
+.db-upload-card {
+    border-top: 4px solid #6c757d !important;
+}
+
+.sidebar-card {
+    top: 20px;
+    border-top: 4px solid #0dcaf0 !important;
+}
+
+.results-table-wrapper {
+    overflow: hidden;
+}
+
+.table th {
+    white-space: nowrap;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+.badge {
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    padding: 0.4em 0.6em;
+}
+
+/* Custom row hover for better visibility */
+.table-hover tbody tr:hover {
+    background-color: #e9ecef;
+}
