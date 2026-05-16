@@ -1,9 +1,10 @@
 import os
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from modules.database_handler import init_db, clear_db, insert_mappings
 from modules.excel_reader import validate_and_read_excel
 from modules.search_engine import search_mappings
 from modules.mapping_logic import get_cross_plant_relationships
+from modules.chatbot_engine import get_chatbot_response
 
 app = Flask(__name__)
 app.secret_key = 'offline_industrial_key'
@@ -56,6 +57,16 @@ def search():
     relationships = get_cross_plant_relationships(query)
     
     return render_template('results.html', query=query, results=results, relationships=relationships)
+
+@app.route('/chat', methods=['GET', 'POST'])
+def chat():
+    if request.method == 'POST':
+        data = request.get_json()
+        user_message = data.get('message', '')
+        response = get_chatbot_response(user_message)
+        return jsonify({'response': response})
+    
+    return render_template('chat.html')
 
 if __name__ == '__main__':
     app.run(debug=True, port=5001)

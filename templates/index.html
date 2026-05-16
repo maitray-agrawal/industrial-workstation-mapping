@@ -6,6 +6,7 @@
     <title>Industrial Workstation Knowledge Mapping</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="bg-light">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
@@ -13,6 +14,15 @@
             <a class="navbar-brand" href="/">
                 <i class="bi bi-gear-fill"></i> Industrial Knowledge Mapping System
             </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="/">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/chat">Chat Assistant</a></li>
+                </ul>
+            </div>
         </div>
     </nav>
 
@@ -57,6 +67,32 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Floating Chatbot Assistant -->
+    <button id="chatbot-launcher" class="chatbot-launcher shadow-lg">
+        <i class="fa-solid fa-robot fa-lg"></i>
+    </button>
+
+    <div id="chatbot-popup" class="chatbot-popup shadow-lg">
+        <div class="chatbot-header bg-primary text-white p-3 d-flex justify-content-between align-items-center">
+            <h6 class="mb-0"><i class="fa-solid fa-robot me-2"></i> Industrial Assistant</h6>
+            <button id="chatbot-close" class="btn-close btn-close-white" aria-label="Close"></button>
+        </div>
+        <div id="chatbot-messages" class="chatbot-messages p-3">
+            <div class="message-bubble bot-message shadow-sm">
+                Hello! I am your offline Industrial Knowledge Assistant. How can I help you today?
+            </div>
+        </div>
+        <div class="chatbot-typing-indicator px-3 pb-2 text-muted small" id="chatbot-typing" style="display: none;">
+            <i class="fa-solid fa-circle-notch fa-spin me-1"></i> Searching local database...
+        </div>
+        <div class="chatbot-footer p-2 border-top bg-light">
+            <form id="chatbot-form" class="d-flex mb-0">
+                <input type="text" id="chatbot-input" class="form-control me-2" placeholder="Type your query..." autocomplete="off" required>
+                <button type="submit" class="btn btn-primary px-3"><i class="fa-solid fa-paper-plane"></i></button>
+            </form>
         </div>
     </div>
 
