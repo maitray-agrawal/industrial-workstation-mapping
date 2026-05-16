@@ -2,6 +2,14 @@
 
 A lightweight, fully offline web application designed for a manufacturing environment (similar to Tata Motors workshops) to connect and map workstation knowledge. 
 
+## 📸 Project Screenshots
+
+**Homepage / Database Upload**
+![Homepage UI](docs/homepage.png)
+
+**Search Results & Cross-Plant Relationships**
+![Search Results UI](docs/search_results.png)
+
 ## 🎯 Project Objective
 This system acts as a local, offline-first search engine and knowledge base that connects:
 - Plants & Workshops
